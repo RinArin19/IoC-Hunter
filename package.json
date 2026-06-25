@@ -1,0 +1,24 @@
+{
+  "name": "ioc-hunter",
+  "version": "1.0.0",
+  "private": true,
+  "description": "On-demand IoC aggregator with CSV/PDF export for manual SIEM import.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "test": "vitest run",
+    "db:migrate": "node sql/migrate.js"
+  },
+  "dependencies": {
+    "iconv-lite": "^0.7.2",
+    "next": "14.2.35",
+    "pdfkit": "0.15.0",
+    "pg": "8.12.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "vitest": "1.6.0"
+  }
+}

@@ -1,0 +1,294 @@
+/* app/globals.css
+   Design direction: a dark "ops console" suited to a security analyst
+   scanning feeds at odd hours — not a marketing page. Monospace carries the
+   actual IoC data (the part that needs to be read precisely and copy-pasted
+   accurately); a humanist sans carries UI labels; a technical display face
+   is used sparingly for the page title only.
+
+   Token system:
+   --bg        #11151C  page background, near-black blue-slate
+   --surface   #1B212C  panel/card background
+   --surface-2 #222A36  table header / hover background
+   --border    #2B3340  hairline borders
+   --text      #E6E9EE  primary text
+   --text-muted #8993A4 secondary text
+   --amber     #E8A33D  "new" indicator, primary action
+   --teal      #3FA796  "known/seen again" indicator
+   --red       #E2574C  errors / warnings
+*/
+
+:root {
+  --bg: #11151c;
+  --surface: #1b212c;
+  --surface-2: #222a36;
+  --border: #2b3340;
+  --text: #e6e9ee;
+  --text-muted: #8993a4;
+  --amber: #e8a33d;
+  --teal: #3fa796;
+  --red: #e2574c;
+
+  --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--amber);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+button:focus-visible,
+a:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+
+.shell {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 32px 24px 80px;
+}
+
+.topbar {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 16px;
+  margin-bottom: 28px;
+}
+
+.brand {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.brand .dot {
+  color: var(--amber);
+}
+
+.nav {
+  display: flex;
+  gap: 18px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.nav a {
+  color: var(--text-muted);
+}
+.nav a.active {
+  color: var(--text);
+}
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 20px;
+}
+
+.controls-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.btn {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 18px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary {
+  background: var(--amber);
+  color: #1b1303;
+}
+.btn-primary:hover {
+  background: #f0ad4e;
+}
+.btn-primary:disabled {
+  background: #6b5a36;
+  color: #aaa18d;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--border);
+}
+.btn-secondary:hover {
+  border-color: var(--text-muted);
+}
+
+/* Signature moment: a scanning sweep across the primary button while a
+   fetch is in flight — a quiet nod to "scanning feeds," not a flashy effect. */
+.btn-primary.scanning::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -40%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  animation: sweep 1.1s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-primary.scanning::after {
+    animation: none;
+  }
+}
+
+@keyframes sweep {
+  from {
+    left: -40%;
+  }
+  to {
+    left: 100%;
+  }
+}
+
+select {
+  font-family: var(--font-body);
+  font-size: 13px;
+  background: var(--surface-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 8px 10px;
+}
+
+.status-line {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.warning-banner {
+  background: rgba(226, 87, 76, 0.12);
+  border: 1px solid rgba(226, 87, 76, 0.4);
+  color: #f2a39c;
+  border-radius: 4px;
+  padding: 10px 14px;
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+thead th {
+  text-align: left;
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: var(--surface-2);
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+tbody td {
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+tbody tr:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.ioc-value {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  word-break: break-all;
+}
+
+.tag-chip {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  padding: 2px 7px;
+  border-radius: 3px;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  margin-right: 4px;
+}
+
+.new-chip {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--amber);
+  border: 1px solid var(--amber);
+  border-radius: 3px;
+  padding: 1px 6px;
+}
+
+.known-chip {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.03em;
+  color: var(--teal);
+  border: 1px solid var(--teal);
+  border-radius: 3px;
+  padding: 1px 6px;
+}
+
+.empty-state {
+  text-align: center;
+  color: var(--text-muted);
+  padding: 48px 16px;
+  font-size: 14px;
+}
+
+.type-pill {
+  display: inline-block;
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+}
+
+footer.note {
+  margin-top: 14px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
