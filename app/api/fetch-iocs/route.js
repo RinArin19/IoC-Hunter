@@ -36,7 +36,10 @@ export async function POST() {
     await touchKnownIocs(knownIocs);
   } catch (err) {
     console.error('fetch-iocs: DB persistence failed:', err);
-    dbWarning = 'Fetched IoCs successfully, but saving to the database failed. Results below were not persisted.';
+    const reason = err.message?.includes('DATABASE_URL')
+      ? 'DATABASE_URL is not configured on Vercel — add it in Project Settings → Environment Variables.'
+      : err.message || 'Unknown error';
+    dbWarning = `Fetched IoCs successfully, but saving to the database failed: ${reason}`;
   }
 
   const resultIocs = [
