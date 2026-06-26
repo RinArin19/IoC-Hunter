@@ -23,6 +23,7 @@ export async function GET(request) {
     type: searchParams.get('type') || undefined,
     source: searchParams.get('source') || undefined,
     batchId: searchParams.get('batchId') || undefined,
+    limit: 100, // cap the UI list to the 100 most recent IoCs
   };
 
   try {

@@ -11,6 +11,7 @@
     "db:migrate": "node sql/migrate.js"
   },
   "dependencies": {
+    "@neondatabase/serverless": "^1.1.0",
     "iconv-lite": "^0.7.2",
     "next": "14.2.35",
     "pdfkit": "0.15.0",
