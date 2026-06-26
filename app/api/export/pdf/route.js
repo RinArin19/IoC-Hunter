@@ -24,7 +24,16 @@ export async function GET(request) {
     iocs = [];
   }
 
-  const pdfBuffer = await toPdf(iocs);
+  let pdfBuffer;
+  try {
+    pdfBuffer = await toPdf(iocs);
+  } catch (err) {
+    console.error('GET /api/export/pdf: PDF generation failed', err);
+    return new Response(JSON.stringify({ error: 'PDF generation failed', detail: err.message }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
 
   return new Response(pdfBuffer, {
     status: 200,
