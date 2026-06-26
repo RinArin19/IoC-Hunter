@@ -115,8 +115,8 @@ export default function HomePage() {
           <a className="btn btn-secondary" href={exportUrl('csv')}>
             Export CSV
           </a>
-          <a className="btn btn-secondary" href={exportUrl('pdf')}>
-            Export PDF
+          <a className="btn btn-secondary" href={`/report?${exportUrl('pdf').split('?')[1] || ''}`} target="_blank" rel="noreferrer">
+            Preview PDF
           </a>
         </div>
 
